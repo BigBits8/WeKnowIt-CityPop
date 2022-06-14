@@ -4,13 +4,13 @@ import styles from './style'
 import NavButton from '../navButton'
 const Main = (props) => {
   return (
-    <View>
+    <View style={styles.rel}>
       <View style={styles.container}>
         <Text style={styles.text}>CityPop</Text>
       </View>
-      <View>
-        <NavButton />
-        <NavButton />
+      <View style={styles.buttonContainer}>
+        <NavButton content="Search by city" />
+        <NavButton content="Search by country" />
       </View>
     </View>
   );
