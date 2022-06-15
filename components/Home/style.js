@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   container: {
+    paddingTop: 100,
     marginBottom: 100,
     // borderColor: "#FF3D00",
     // borderWidth: 5,

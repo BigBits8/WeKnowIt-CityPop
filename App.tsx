@@ -1,16 +1,24 @@
 // import { StatusBar } from 'expo-status-bar';
-import { StyleSheet } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Main from './components/frontPage/main'
-import NextPage from './components/nextPage/main'
+import { StyleSheet } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Home from "./components/Home";
+import City from "./components/City";
 const Stack = createNativeStackNavigator();
-export default function App () {
+export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Main} />
-        <Stack.Screen name="NextPage" component={NextPage} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ title: "CityPop", headerShown: false}}  
+        />
+        <Stack.Screen
+          name="NextPage"
+          component={City}
+          options={{ title: "CityPop" }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

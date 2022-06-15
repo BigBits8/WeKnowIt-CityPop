@@ -15,6 +15,7 @@ const NavButton = ({title, navigation}) => {
       >
         <Text style={styles.text}></Text>
       </Button>
+      
     </View>
   );
 };
