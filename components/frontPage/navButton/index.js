@@ -1,21 +1,20 @@
 import React from "react";
-import { View, Text, Pressable} from "react-native";
+import { Button, View, Text, Pressable} from "react-native";
 import styles from "./style";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-const NavButton = (props: Object, navigation) => {
-  
-   const content: string = props.content;
-   console.warn(typeof props)
+
+const NavButton = ({title, navigation}) => {
+  const content = title;
+ 
   return (
     <View style={styles.container}>
-      <Pressable
+      <Button
+        title={content}
         onPress={() => navigation.navigate("NextPage")}
         style={styles.button}
       >
-        <Text style={styles.text}>{content}</Text>
-      </Pressable>
+        <Text style={styles.text}></Text>
+      </Button>
     </View>
   );
 };
