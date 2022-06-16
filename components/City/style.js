@@ -10,6 +10,8 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     width: "80%",
+    justifyContent:'center',
+    alignItems: 'center',
   },
   input: {
     width: "100%",
@@ -17,6 +19,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
 
     borderWidth: 1,
+  },
+  button: {
+    backgroundColor: "#2ec6d1",
+    width: "50%",
+    height: 50,
+    borderRadius: 0,
+    alignItems: 'center',
+    justifyContent: "center",
   },
 });
 
