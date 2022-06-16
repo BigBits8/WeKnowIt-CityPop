@@ -38,6 +38,9 @@ const City = ({ navigation }) => {
   )
     .then((resp) => resp.json())
     .then(function (data) {
+      data.forEach(element => {
+        console.log(element.population)
+      });
       console.log(data);
     })
     .catch(function (error) {
