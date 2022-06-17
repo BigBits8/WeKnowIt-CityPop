@@ -1,10 +1,12 @@
 
 import {React, useState} from "react";
-import { View, Text } from "react-native";
+import { FlatList, View, Text } from "react-native";
 
 let inputText = localStorage.getItem("inputText");
-let cityPops = '';
-const showPop = () => {
+let myData = '';
+const ShowPop = () => {
+
+    const [data, setData] = useState(null);
      let inputText = "Paris";
      const url = `https://api.api-ninjas.com/v1/city?name=${inputText}`;
      fetch(
@@ -21,20 +23,21 @@ const showPop = () => {
      )
        .then((resp) => resp.json())
        .then(function (data) {
-         data.forEach((element) => {
-           console.log(element.population);
-         });
-         console.log(data);
+        setData(data);
+
        })
        .catch(function (error) {
          console.log(error);
        });
+       
+      
+
 
   return (
     <View>
-      <Text>{cityPops}</Text>
+      <FlatList />
     </View>
   );
 };
 
-export default showPop;
+export default ShowPop;
