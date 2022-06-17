@@ -17,18 +17,16 @@ export default function App() {
           name="Home"
           component={Home}
           options={{ title: "CityPop", headerShown: false }}
-          
         />
         <Stack.Screen
           name="NextPage"
           component={City}
           options={{ title: "CityPop" }}
-         
         />
         <Stack.Screen
           name="showPop"
           component={showPop}
-          options={{ title: "Population" }}
+          options={{ title: "Population", headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>
