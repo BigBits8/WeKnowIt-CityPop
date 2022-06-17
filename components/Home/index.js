@@ -12,12 +12,17 @@ const Home = ({navigation}) => {
         <Text style={styles.text}>CityPop</Text>
       </View>
       <View style={styles.buttonContainer}>
-        <NavButton 
-        navigation={navigation} 
-        title="search by city" />
-        <NavButton 
-        navigation={navigation} 
-        title="search by country" />
+        <NavButton
+          navigation={navigation}
+          title="search by city"
+          direction={"NextPage"}
+        />
+
+        <NavButton
+          navigation={navigation}
+          title="search by country"
+          direction={"NextPage"}
+        />
       </View>
     </View>
   );

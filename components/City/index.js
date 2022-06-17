@@ -12,46 +12,22 @@ import styles from "./style";
 import homeStyles from "../Home/style";
 import NavButton from "../Home/Buttons";
 
-let myText = "";
-
+let inputText = "";
+let myText = '';
 const City = ({ navigation }) => {
   const [text, setText] = useState("");
 
   const onSubmitEdit = () => {
-    myText = `This is my text: ${text}`;
+    localStorage.setItem("inputText", text);
+    myText = `Saved: ${text}`;
     console.warn(myText);
+    navigation.navigate('showPop');
   };
 
-  let city = "Paris";
-  const url = `https://api.api-ninjas.com/v1/city?name=${city}`;
-  fetch(
-    url,
-    
-    {
-      method: "GET",
-      headers: {
-        "x-api-Key": "EtG+IKg8qrx8SIdtZep7Nw==6XWiAFigpduBbahC",
-        "Content-Type": "application/x-www-form-urlencoded",
-        Accept: "application/json",
-      },
-    }
-  )
-    .then((resp) => resp.json())
-    .then(function (data) {
-      data.forEach(element => {
-        console.log(element.population)
-      });
-      console.log(data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+ 
 
-  
-
-
-  
-  
+      
+      
   return (
     <View style={homeStyles.rel}>
       <View style={styles.wrapper}>
