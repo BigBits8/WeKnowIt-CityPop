@@ -17,16 +17,14 @@ let myText = '';
 const City = ({ navigation }) => {
   const [text, setText] = useState("");
 
-  const onSubmitEdit = () => {
+  const onSubmitEdit = async() => {
     localStorage.setItem("inputText", text);
     myText = `Saved: ${text}`;
     console.warn(myText);
-    navigation.navigate('showPop');
+    await navigation.navigate('showPop');
+    
   };
 
- 
-
-      
       
   return (
     <View style={homeStyles.rel}>

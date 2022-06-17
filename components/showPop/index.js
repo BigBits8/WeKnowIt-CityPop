@@ -1,5 +1,7 @@
 
-import {React, useState} from "react";
+
+import React, { useState, useEffect } from "react";
+import { Box, Center, NativeBaseProvider } from "native-base";
 import {
   SafeAreaView,
   View,
@@ -13,21 +15,14 @@ import {
 let inputText = localStorage.getItem("inputText");
 let cityPops = '';
 
-
-
- const Item = ({ prop }) => (
-   <View style={styles.item}>
-     <Text style={styles.title}>{prop.name}</Text>
-   </View>
- );
-
 const url = `https://api.api-ninjas.com/v1/city?name=${inputText}`;
 const ShowPop = () => {
 
-    const [state, setState] = useState('');
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    const fetchData = async (prop) =>{
-        const response = await fetch(url, {
+    const fetchData = async () => {
+      const resp = await fetch(url, {
           method: "GET",
           headers: {
             "x-api-Key": "EtG+IKg8qrx8SIdtZep7Nw==6XWiAFigpduBbahC",
@@ -35,30 +30,41 @@ const ShowPop = () => {
             Accept: "application/json",
           },
         });
-        const json = await response.json();
-        setState({data: json})
-       let s = state.data;
+      const data = await resp.json();
+      setData(data);
+      setLoading(false);
+    };
 
-        
-       
-    }
-
-   
-        fetchData();
+   const renderItem = ({ item }) => {
+     return (
+       <Box px={5} py={2} rounded="md" bg="primary.300" my={2}>
+         {item.population}
+       </Box>
+     );
+   };
     
-    const renderItem = ({ item }) => <Item title={item} />;
-    return (
-      <SafeAreaView style={styles.container}>
+    
+    useEffect(() => {
+  fetchData();
+}, []);
+
+return (
+  <NativeBaseProvider>
+    <Center flex={1}>
+    <Box> Fetch API</Box>
+      {loading && <Box>Loading..</Box>}
+      {data && (
         <FlatList
-          data={state}
+          data={data}
           renderItem={renderItem}
-          keyExtractor={(x, i) => i}
+          
         />
-      </SafeAreaView>
-    );
+      )}
+    </Center>
+  </NativeBaseProvider>
+);
+}
     
-  
-};
 
 
 const styles = StyleSheet.create({

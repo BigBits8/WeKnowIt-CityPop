@@ -26,7 +26,7 @@ export default function App() {
         <Stack.Screen
           name="showPop"
           component={showPop}
-          options={{ title: "Population", headerShown: false }}
+          options={{ title: "Population" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
