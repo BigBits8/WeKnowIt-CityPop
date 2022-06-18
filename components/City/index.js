@@ -21,7 +21,7 @@ const City = ({ navigation }) => {
     localStorage.setItem("inputText", text);
     myText = `Saved: ${text}`;
     console.warn(myText);
-    await navigation.navigate('showPop');
+    navigation.navigate('showPop');
     
   };
 

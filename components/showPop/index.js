@@ -12,15 +12,20 @@ import {
 } from "react-native";
 
 
-let inputText = localStorage.getItem("inputText");
+
 let cityPops = '';
 
-const url = `https://api.api-ninjas.com/v1/city?name=${inputText}`;
+
 const ShowPop = () => {
 
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
+    
+    const [loading, setLoading] = useState();
 
+    let inputText = localStorage.getItem("inputText");
+    
+    const url = `https://api.api-ninjas.com/v1/city?name=${inputText}`;
+      
     const fetchData = async () => {
       const resp = await fetch(url, {
           method: "GET",
