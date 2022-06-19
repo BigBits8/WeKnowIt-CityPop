@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Center, NativeBaseProvider } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import cityStyles from "../City/style";
-import homeStyles from "../Home/style";
 import {
   SafeAreaView,
   View,
@@ -11,8 +9,6 @@ import {
   StyleSheet,
   StatusBar,
 } from "react-native";
-
-let cityPops = "";
 
 const ShowPop = () => {
   const [text, setText] = useState("");
@@ -54,11 +50,8 @@ const ShowPop = () => {
   const renderItem = ({ item }) => {
     return <Text style={styles.popNum}>{item.population}</Text>;
   };
-// const fetchIt = async () =>{
-//   await getData()
-//   await fetchData();
-// }
-// fetchIt();
+
+  
   useEffect(() => {
     fetchData();
   }, [text]);
