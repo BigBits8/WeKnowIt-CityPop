@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Center, NativeBaseProvider } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import styles from "./style";
 import {
   SafeAreaView,
   View,
@@ -13,7 +14,7 @@ import {
 const ShowPop = () => {
   const [text, setText] = useState("");
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(true);
 
   const getData = async () => {
     try {
@@ -63,11 +64,10 @@ const ShowPop = () => {
           <Text style={styles.text}>{text}</Text>
         </View>
 
-        {loading && <Box>Loading..</Box>}
         {data && (
           <View style={styles.pop}>
             <Text style={styles.popText}>Population</Text>
-            <FlatList  data={data} renderItem={renderItem} />
+            {loading && <Text>Loading..</Text> || <FlatList data={data} renderItem={renderItem} />}
           </View>
         )}
       </View>
@@ -75,52 +75,5 @@ const ShowPop = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  pop: {
-    alignItems: "center",
-    width: "80%",
-    height: 100,
-    padding: 10,
-    borderWidth: 1,
-  },
-  popText: {
-    marginBottom: 10,
-    textTransform: "uppercase",
-  },
-  popNum: {
-    fontSize: 20,
-  },
-  rel: {
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  wrapper: {
-    paddingTop: 50,
-    marginBottom: 100,
-    // borderColor: "#FF3D00",
-    // borderWidth: 5,
-  },
-  text: {
-    fontSize: 40,
-    fontWeight: "500",
-    textTransform: "uppercase",
-  },
-  container: {
-    paddingTop: 50,
-    fontSize: 70,
-    marginBottom: 100,
-    borderColor: "#FF3D00",
-    borderWidth: 5,
-  },
-  item: {
-    padding: 20,
-    fontSize: 70,
-    borderColor: "#FF3D00",
-    borderWidth: 5,
-  },
-  title: {
-    fontSize: 32,
-  },
-});
+
 export default ShowPop;
