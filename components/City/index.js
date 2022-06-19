@@ -11,16 +11,28 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import styles from "./style";
 import homeStyles from "../Home/style";
 import NavButton from "../Home/Buttons";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 let inputText = "";
 let myText = '';
 const City = ({ navigation }) => {
   const [text, setText] = useState("");
 
+  
+const storeData = async (value) => {
+  try {
+    await AsyncStorage.setItem("@storage_Key", value);
+  } catch (e) {
+    // saving error
+  }
+};
   const onSubmitEdit = async() => {
-    localStorage.setItem("inputText", text);
-    myText = `Saved: ${text}`;
-    console.warn(myText);
+ 
+      
+      storeData(text);
+      
+    // localStorage.setItem("inputText", text);
+    // myText = `Saved: ${text}`;
+    // console.warn(myText);
     navigation.navigate('showPop');
     
   };

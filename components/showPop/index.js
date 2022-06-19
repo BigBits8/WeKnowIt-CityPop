@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Center, NativeBaseProvider } from "native-base";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   SafeAreaView,
   View,
@@ -9,66 +10,67 @@ import {
   StatusBar,
 } from "react-native";
 
-
-
-let cityPops = '';
-
+let cityPops = "";
 
 const ShowPop = () => {
+  const [text, setText] = useState("");
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState();
 
-    const [data, setData] = useState([]);
-    
-    const [loading, setLoading] = useState();
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("@storage_Key");
+      if (value !== null) {
+        setText(value);
+        
+      }
+    } catch (e) {
+      console.warn("Faild to fetch the input");
+    }
+  };
 
-    let inputText = localStorage.getItem("inputText");
-    
-    const url = `https://api.api-ninjas.com/v1/city?name=${inputText}`;
-      
-    const fetchData = async () => {
-      const resp = await fetch(url, {
-          method: "GET",
-          headers: {
-            "x-api-Key": "EtG+IKg8qrx8SIdtZep7Nw==6XWiAFigpduBbahC",
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        });
-      const data = await resp.json();
-      setData(data);
-      setLoading(false);
-    };
+   getData();
+  
+  
+  let url = `https://api.api-ninjas.com/v1/city?name=${text}`;
+  const fetchData = async () => {
+     
+    const resp = await fetch(url, {
+      method: "GET",
+      headers: {
+        "x-api-Key": "EtG+IKg8qrx8SIdtZep7Nw==6XWiAFigpduBbahC",
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    const data = await resp.json();
+    console.log(data)
+    setData(data);
+    setLoading(false);
+  };
 
-   const renderItem = ({ item }) => {
-     return (
-       <Box px={5} py={2} rounded="md" bg="primary.300" my={2}>
-         {item.population}
-       </Box>
-     );
-   };
-    
-    
-    useEffect(() => {
-  fetchData();
-}, []);
-
-return (
-  <NativeBaseProvider>
-    <Center flex={1}>
-    <Box> Fetch API</Box>
-      {loading && <Box>Loading..</Box>}
-      {data && (
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          
-        />
-      )}
-    </Center>
-  </NativeBaseProvider>
-);
-}
-    
-
+  const renderItem = ({ item }) => {
+    return <Box>{item.population}</Box>;
+  };
+// const fetchIt = async () =>{
+//   await getData()
+//   await fetchData();
+// }
+// fetchIt();
+  useEffect(() => {
+    fetchData();
+  }, [text]);
+  
+  return (
+    <NativeBaseProvider>
+      <Center flex={1}>
+        <Box></Box>
+        {loading && <Box>Loading..</Box>}
+        {data && <FlatList data={data} renderItem={renderItem} />}
+      </Center>
+    </NativeBaseProvider>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
