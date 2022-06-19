@@ -12,32 +12,25 @@ import styles from "./style";
 import homeStyles from "../Home/style";
 import NavButton from "../Home/Buttons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 let inputText = "";
-let myText = '';
+let myText = "";
 const City = ({ navigation }) => {
+
   const [text, setText] = useState("");
 
-  
-const storeData = async (value) => {
-  try {
-    await AsyncStorage.setItem("@storage_Key", value);
-  } catch (e) {
-    // saving error
-  }
-};
-  const onSubmitEdit = async() => {
- 
-      
-      storeData(text);
-      
-    // localStorage.setItem("inputText", text);
-    // myText = `Saved: ${text}`;
-    // console.warn(myText);
-    navigation.navigate('showPop');
-    
+  const storeData = async (value) => {
+    try {
+      await AsyncStorage.setItem("@storage_Key", value);
+    } catch (e) {
+      // saving error
+    }
+  };
+  const onSubmitEdit = async () => {
+    storeData(text);
+    navigation.navigate("showPop");
   };
 
-      
   return (
     <View style={homeStyles.rel}>
       <View style={styles.wrapper}>
@@ -51,8 +44,8 @@ const storeData = async (value) => {
           defaultValue={text}
           onChangeText={(newText) => setText(newText)}
         />
-
         <TouchableHighlight style={styles.button} onPress={onSubmitEdit}>
+          
           <Text>Button</Text>
         </TouchableHighlight>
       </View>
