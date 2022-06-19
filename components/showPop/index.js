@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Box, Center, NativeBaseProvider } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import cityStyles from "../City/style";
+import homeStyles from "../Home/style";
 import {
   SafeAreaView,
   View,
@@ -50,7 +52,7 @@ const ShowPop = () => {
   };
 
   const renderItem = ({ item }) => {
-    return <Box>{item.population}</Box>;
+    return <Text style={styles.popNum}>{item.population}</Text>;
   };
 // const fetchIt = async () =>{
 //   await getData()
@@ -63,25 +65,66 @@ const ShowPop = () => {
   
   return (
     <NativeBaseProvider>
-      <Center flex={1}>
-        <Box></Box>
+      <View style={styles.rel}>
+        <View style={styles.wrapper}>
+          <Text style={styles.text}>{text}</Text>
+        </View>
+
         {loading && <Box>Loading..</Box>}
-        {data && <FlatList data={data} renderItem={renderItem} />}
-      </Center>
+        {data && (
+          <View style={styles.pop}>
+            <Text style={styles.popText}>Population</Text>
+            <FlatList  data={data} renderItem={renderItem} />
+          </View>
+        )}
+      </View>
     </NativeBaseProvider>
   );
 };
 
 const styles = StyleSheet.create({
+  pop: {
+    alignItems: "center",
+    width: "80%",
+    height: 100,
+    padding: 10,
+    borderWidth: 1,
+  },
+  popText: {
+    marginBottom: 10,
+    textTransform: "uppercase",
+  },
+  popNum: {
+    fontSize: 20,
+  },
+  rel: {
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  wrapper: {
+    paddingTop: 50,
+    marginBottom: 100,
+    // borderColor: "#FF3D00",
+    // borderWidth: 5,
+  },
+  text: {
+    fontSize: 40,
+    fontWeight: "500",
+    textTransform: "uppercase",
+  },
   container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
+    paddingTop: 50,
+    fontSize: 70,
+    marginBottom: 100,
+    borderColor: "#FF3D00",
+    borderWidth: 5,
   },
   item: {
-    backgroundColor: "#f9c2ff",
     padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    fontSize: 70,
+    borderColor: "#FF3D00",
+    borderWidth: 5,
   },
   title: {
     fontSize: 32,
