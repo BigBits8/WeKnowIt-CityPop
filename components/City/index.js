@@ -12,7 +12,7 @@ import styles from "./style";
 import homeStyles from "../Home/style";
 import NavButton from "../Home/Buttons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import Icon from "react-native-vector-icons/Ionicons";
 let inputText = "";
 let myText = "";
 const City = ({ navigation }) => {
@@ -45,8 +45,9 @@ const City = ({ navigation }) => {
           onChangeText={(newText) => setText(newText)}
         />
         <TouchableHighlight style={styles.button} onPress={onSubmitEdit}>
-          
-          <Text>Button</Text>
+          <Text>
+            <Icon style={styles.Icon} name="search-outline"></Icon>
+          </Text>
         </TouchableHighlight>
       </View>
     </View>

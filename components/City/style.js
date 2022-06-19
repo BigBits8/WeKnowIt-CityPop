@@ -10,14 +10,13 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     width: "80%",
-    justifyContent:'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   input: {
     width: "100%",
     height: 50,
     textAlign: "center",
-
     borderWidth: 1,
   },
   button: {
@@ -25,8 +24,12 @@ const styles = StyleSheet.create({
     width: "50%",
     height: 50,
     borderRadius: 0,
-    alignItems: 'center',
+    alignItems: "center",
     justifyContent: "center",
+    marginTop: 20,
+  },
+  Icon: {
+    fontSize: 30,
   },
 });
 
