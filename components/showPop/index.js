@@ -21,7 +21,6 @@ const ShowPop = () => {
       const value = await AsyncStorage.getItem("@storage_Key");
       if (value !== null) {
         setText(value);
-        
       }
     } catch (e) {
       console.warn("Faild to fetch the input");
@@ -34,14 +33,17 @@ const ShowPop = () => {
   let url = `https://api.api-ninjas.com/v1/city?name=${text}`;
   const fetchData = async () => {
      
-    const resp = await fetch(url, {
-      method: "GET",
-      headers: {
-        "x-api-Key": "EtG+IKg8qrx8SIdtZep7Nw==6XWiAFigpduBbahC",
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    });
+    const resp = await fetch(
+      url,
+      {
+        method: "GET",
+        headers: {
+          "X-Api-Key": "EtG+IKg8qrx8SIdtZep7Nw==6XWiAFigpduBbahC",
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
     const data = await resp.json();
     console.log(data)
     setData(data);

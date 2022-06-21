@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text} from "react-native";
 import styles from './style'
-import NavButton from './Buttons/index'
+import NavButton from '../Buttons/index'
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -21,7 +21,7 @@ const Home = ({navigation}) => {
         <NavButton
           navigation={navigation}
           title="search by country"
-          direction={"NextPage"}
+          direction={"Country"}
         />
       </View>
     </View>

@@ -13,9 +13,9 @@ import homeStyles from "../Home/main/style";
 import NavButton from "../Home/Buttons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/Ionicons";
-
-const City = ({ navigation }) => {
-
+let inputText = "";
+let myText = "";
+const Country = ({ navigation }) => {
   const [text, setText] = useState("");
 
   const storeData = async (value) => {
@@ -27,13 +27,13 @@ const City = ({ navigation }) => {
   };
   const onSubmitEdit = async () => {
     storeData(text);
-    navigation.navigate("showPop");
+    navigation.navigate("ShowCities");
   };
 
   return (
     <View style={homeStyles.rel}>
       <View style={styles.wrapper}>
-        <Text style={homeStyles.text}>Search By City</Text>
+        <Text style={homeStyles.text}>Search By Country</Text>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
@@ -53,4 +53,4 @@ const City = ({ navigation }) => {
   );
 };
 
-export default City;
+export default Country;

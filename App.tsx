@@ -3,9 +3,11 @@ import { StyleSheet } from "react-native";
 import {useState} from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Home from "./components/Home";
+import Home from "./components/Home/main";
 import City from "./components/City";
-import showPop from "./components/showPop";
+import ShowPop from "./components/ShowPop";
+import Country from "./components/Country";
+import ShowCities from "./components/ShowCities";
 const Stack = createNativeStackNavigator();
 export default function App() {
 
@@ -25,8 +27,18 @@ export default function App() {
         />
         <Stack.Screen
           name="showPop"
-          component={showPop}
+          component={ShowPop}
           options={{ title: "Population" }}
+        />
+        <Stack.Screen
+          name="Country"
+          component={Country}
+          options={{ title: "Country" }}
+        />
+        <Stack.Screen
+          name="ShowCities"
+          component={ShowCities}
+          options={{ title: "ShowCities" }}
         />
       </Stack.Navigator>
     </NavigationContainer>
