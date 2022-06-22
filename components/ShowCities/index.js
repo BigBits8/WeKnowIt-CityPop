@@ -8,80 +8,78 @@ import {
   StatusBar,
 } from "react-native";
 import { Box, Center, NativeBaseProvider } from "native-base";
-import ShowPopStyles from '../ShowPop/style';
-import styles from './style';
+import ShowPopStyles from "../ShowPop/style";
+import styles from "./style";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/Ionicons";
 
 const ShowCities = ({ navigation }) => {
-   const [text, setText] = useState("");
-   const [data, setData] = useState([]);
-   const [loading, setLoading] = useState(true);
+  const [text, setText] = useState();
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-   const storeData = async (value) => {
-     try {
-       await AsyncStorage.setItem("@storage_Key", value);
-     } catch (e) {
-       // saving error
-     }
-   };
+  const storeData = async (value) => {
+    try {
+      await AsyncStorage.setItem("@storage_Key", value);
+    } catch (e) {
+      // saving error
+    }
+  };
 
-   const getData = async () => {
-     try {
-       const value = await AsyncStorage.getItem("@storage_Key");
-       if (value !== null) {
-         setText(value);
-       }
-     } catch (e) {
-       console.warn("Faild to fetch the input");
-     }
-   };
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("@storage_Key");
+      if (value !== null) {
+        setText(value);
+      }
+    } catch (e) {
+      console.warn("Faild to fetch the input");
+    }
+  };
 
-   getData();
+  getData();
 
-   let url = `http://api.geonames.org/searchJSON?q=${text}&featureCode=PPLC&maxRows=3&username=weknowit2`;
-   const fetchData = async () => {
-     const resp = await fetch(url,{
-       method: "GET",
-       headers: {
-         "X-Api-Key": "EtG+IKg8qrx8SIdtZep7Nw==6XWiAFigpduBbahC",
-         "Content-Type": "application/json",
-         Accept: "application/json",
-       },
-     });
-     const data = await resp.json();
-     console.log(data);
-     setData(data);
-     setLoading(false);
-   };
+  let url = `http://api.geonames.org/searchJSON?country=${text}&maxRows=10&username=weknowit2`;
+  const fetchData = async () => {
+    getData();
+    try {
+      const resp = await fetch(url, {
+        method: "GET",
+        headers: {
+          "X-Api-Key": "EtG+IKg8qrx8SIdtZep7Nw==6XWiAFigpduBbahC",
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+      const data = await resp.json();
+      console.log(data);
+      setData(data);
+      setLoading(false);
+    } catch (e) {
+      console.warn("Fetch failed");
+    }
+  };
 
-   const renderItem = ({ item }) => {
-     return (
-       <View style={styles.test}>
-         <Text
-           style={styles.popNum}
-           onPress={(event) =>{
-             storeData(event._dispatchInstances.memoizedProps.children);
+  const renderItem = ({ item }) => {
+    return (
+      <View style={styles.test}>
+        <Text
+          style={styles.popNum}
+          onPress={async (event) => {
+            storeData(event._dispatchInstances.memoizedProps.children);
             navigation.navigate("showPop");
-           }
-           }
-         >
-           {item.name}
-         </Text>
-       </View>
-     );
-   };
-   
+          }}
+        >
+          {item.name}
+        </Text>
+      </View>
+    );
+  };
 
-   const onSubmitEdit = async () => {
-     storeData(text);
-     
-   };
+  useEffect(() => {
+    fetchData();
+  }, [text]);
 
-   useEffect(() => {
-     fetchData();
-   }, [text]);
-  
   return (
     <NativeBaseProvider>
       <View style={ShowPopStyles.rel}>

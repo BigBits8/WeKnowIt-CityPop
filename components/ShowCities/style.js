@@ -7,9 +7,7 @@ const styles = StyleSheet.create({
     height: 200,
     padding: 10,
   },
-  test: {
-    width: "100%",
-  },
+  
   popNum: {
     width: "100%",
     borderWidth: 1,

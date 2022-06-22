@@ -25,6 +25,7 @@ const Country = ({ navigation }) => {
       // saving error
     }
   };
+
   const onSubmitEdit = async () => {
     storeData(text);
     navigation.navigate("ShowCities");
@@ -38,7 +39,7 @@ const Country = ({ navigation }) => {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Enter a city"
+          placeholder="Enter a country"
           keyboardType="default"
           defaultValue={text}
           onChangeText={(newText) => setText(newText)}

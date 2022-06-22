@@ -12,7 +12,7 @@ import {
 } from "react-native";
 
 const ShowPop = () => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -29,11 +29,11 @@ const ShowPop = () => {
 
    getData();
   
-  
   let url = `https://api.api-ninjas.com/v1/city?name=${text}`;
+
   const fetchData = async () => {
-     
-    const resp = await fetch(
+  
+      const resp = await fetch(
       url,
       {
         method: "GET",
@@ -44,17 +44,17 @@ const ShowPop = () => {
         },
       }
     );
-    const data = await resp.json();
-    console.log(data)
-    setData(data);
-    setLoading(false);
+
+      const data = await resp.json();
+      console.log(data);
+      setData(data);
+      setLoading(false);
   };
 
   const renderItem = ({ item }) => {
     return <Text style={styles.popNum}>{item.population}</Text>;
   };
 
-  
   useEffect(() => {
     fetchData();
   }, [text]);
@@ -69,7 +69,7 @@ const ShowPop = () => {
         {data && (
           <View style={styles.pop}>
             <Text style={styles.popText}>Population</Text>
-            {loading && <Text>Loading..</Text> || <FlatList data={data} renderItem={renderItem} />}
+            {loading && <Text>Loading..</Text>  || <FlatList data={data} renderItem={renderItem} />}
           </View>
         )}
       </View>
