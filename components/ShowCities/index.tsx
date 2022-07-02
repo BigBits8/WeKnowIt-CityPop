@@ -1,25 +1,28 @@
-import { React, useState, useEffect } from "react";
-import {
-  SafeAreaView,
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  StatusBar,
-} from "react-native";
-import { Box, Center, NativeBaseProvider } from "native-base";
+import { useState, useEffect } from "react";
+import { View, Text, FlatList } from "react-native";
+import { NativeBaseProvider } from "native-base";
 import ShowPopStyles from "../ShowPop/style";
 import styles from "./style";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Icon from "react-native-vector-icons/Ionicons";
 
-const ShowCities = ({ navigation }) => {
-  const [text, setText] = useState();
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+export type Data = {
+  country: string;
+  is_capital: boolean;
+  latitude: number;
+  longitude: number;
+  name: string;
+  population: number;
+  geonames?: [];
+};
 
-  const storeData = async (value) => {
+const ShowCities = ({ navigation }: any) => {
+  const [text, setText] = useState<string>("");
+  const [data, setData] = useState<Data>();
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const storeData = async (value: string) => {
     try {
+      AsyncStorage.clear();
       await AsyncStorage.setItem("@storage_Key", value);
     } catch (e) {
       // saving error
@@ -38,10 +41,10 @@ const ShowCities = ({ navigation }) => {
   };
 
   getData();
+  let url = `http://api.geonames.org/searchJSON?country=${text}&maxRows=3&username=weknowit2`;
 
-  let url = `http://api.geonames.org/searchJSON?country=${text}&maxRows=10&username=weknowit2`;
   const fetchData = async () => {
-    getData();
+    await getData();
     try {
       const resp = await fetch(url, {
         method: "GET",
@@ -51,25 +54,33 @@ const ShowCities = ({ navigation }) => {
           Accept: "application/json",
         },
       });
-      const data = await resp.json();
-      console.log(data);
+      const data: Data = await resp.json();
+      console.warn();
       setData(data);
+
       setLoading(false);
     } catch (e) {
       console.warn("Fetch failed");
     }
   };
 
-  const renderItem = ({ item }) => {
+  const onSubmitEdit = async () => {
+    storeData(text);
+    navigation.navigate("showPop");
+  };
+
+  // KOLLA HÄR!!!
+  type Item = {
+    name: string,
+  };
+  interface Object {
+    item: Item;
+  }
+  
+  const renderItem = ({ item }: Object) => {
     return (
-      <View style={styles.test}>
-        <Text
-          style={styles.popNum}
-          onPress={async (event) => {
-            storeData(event._dispatchInstances.memoizedProps.children);
-            navigation.navigate("showPop");
-          }}
-        >
+      <View>
+        <Text style={styles.popNum} onPress={onSubmitEdit}>
           {item.name}
         </Text>
       </View>

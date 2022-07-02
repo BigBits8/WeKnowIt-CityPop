@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Box, Center, NativeBaseProvider } from "native-base";
+import { NativeBaseProvider } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "./style";
-import {
-  SafeAreaView,
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  StatusBar,
-} from "react-native";
+import { View, Text, FlatList } from "react-native";
+import { Data } from "../ShowCities";
 
 const ShowPop = () => {
-  const [text, setText] = useState();
+  const [text, setText] = useState<string>();
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const getData = async () => {
     try {
@@ -27,14 +21,11 @@ const ShowPop = () => {
     }
   };
 
-   getData();
   
-  let url = `https://api.api-ninjas.com/v1/city?name=${text}`;
-
   const fetchData = async () => {
-  
-      const resp = await fetch(
-      url,
+    getData();
+    const resp = await fetch(
+      `https://api.api-ninjas.com/v1/city?name=${text}`,
       {
         method: "GET",
         headers: {
@@ -45,20 +36,29 @@ const ShowPop = () => {
       }
     );
 
-      const data = await resp.json();
-      console.log(data);
-      setData(data);
-      setLoading(false);
-  };
+    const data = await resp.json();
 
-  const renderItem = ({ item }) => {
+    setData(data);
+    setLoading(false);
+    
+  };
+  
+  type Item = {
+    population: number,
+  }
+  interface Object{
+    item: Item
+  }
+  const renderItem = ({ item }: Object) => {
     return <Text style={styles.popNum}>{item.population}</Text>;
   };
 
   useEffect(() => {
-    fetchData();
+    if (text !== null) {
+      fetchData();
+    }
   }, [text]);
-  
+
   return (
     <NativeBaseProvider>
       <View style={styles.rel}>
@@ -69,13 +69,14 @@ const ShowPop = () => {
         {data && (
           <View style={styles.pop}>
             <Text style={styles.popText}>Population</Text>
-            {loading && <Text>Loading..</Text>  || <FlatList data={data} renderItem={renderItem} />}
+            {(loading && <Text>Loading..</Text>) || (
+              <FlatList data={data} renderItem={renderItem} />
+            )}
           </View>
         )}
       </View>
     </NativeBaseProvider>
   );
 };
-
 
 export default ShowPop;

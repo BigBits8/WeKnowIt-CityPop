@@ -1,11 +1,10 @@
 import React from "react";
 import { View, Text} from "react-native";
 import styles from './style'
-import NavButton from '../Buttons/index'
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import NavButton from '../Buttons'
 
-const Home = ({navigation}) => {
+
+const Home = ({navigation}: any) => {
   return (
     <View style={styles.rel}>
       <View style={styles.container}>

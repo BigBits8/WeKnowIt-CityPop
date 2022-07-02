@@ -1,6 +1,6 @@
 // import { StatusBar } from 'expo-status-bar';
-import { StyleSheet } from "react-native";
-import {useState} from 'react';
+// import { StyleSheet } from "react-native";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./components/Home/main";
@@ -28,17 +28,17 @@ export default function App() {
         <Stack.Screen
           name="showPop"
           component={ShowPop}
-          options={{ title: "Population" }}
+          options={{ title: "Search By City" }}
         />
         <Stack.Screen
           name="Country"
           component={Country}
-          options={{ title: "Country" }}
+          options={{ title: "CityPop" }}
         />
         <Stack.Screen
           name="ShowCities"
           component={ShowCities}
-          options={{ title: "ShowCities" }}
+          options={{ title: "Search By Country" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

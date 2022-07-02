@@ -1,24 +1,20 @@
-import { React, useState, useEffect } from "react";
+import { useState } from "react";
 import {
-  Button,
   View,
   Text,
   TextInput,
   TouchableHighlight,
 } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import styles from "./style";
 import homeStyles from "../Home/main/style";
-import NavButton from "../Home/Buttons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/Ionicons";
-let inputText = "";
-let myText = "";
+
 const Country = ({ navigation }) => {
   const [text, setText] = useState("");
 
-  const storeData = async (value) => {
+  const storeData = async (value: string) => {
     try {
       await AsyncStorage.setItem("@storage_Key", value);
     } catch (e) {
