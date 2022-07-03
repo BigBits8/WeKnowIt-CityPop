@@ -14,6 +14,7 @@ const ShowPop = () => {
     try {
       const value = await AsyncStorage.getItem("@storage_Key");
       if (value !== null) {
+        console.warn(value);
         setText(value);
       }
     } catch (e) {
@@ -21,7 +22,6 @@ const ShowPop = () => {
     }
   };
 
-  
   const fetchData = async () => {
     getData();
     const resp = await fetch(
@@ -37,17 +37,16 @@ const ShowPop = () => {
     );
 
     const data = await resp.json();
-
+      
     setData(data);
     setLoading(false);
-    
   };
-  
+
   type Item = {
-    population: number,
-  }
-  interface Object{
-    item: Item
+    population: number;
+  };
+  interface Object {
+    item: Item;
   }
   const renderItem = ({ item }: Object) => {
     return <Text style={styles.popNum}>{item.population}</Text>;

@@ -7,22 +7,16 @@ import {
 } from "react-native";
 import styles from "./style";
 import homeStyles from "../Home/main/style";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/Ionicons";
+import StoreData from '../sharedFunctions/func'
 
-
+// Component for searching by city
 const City = ({ navigation }) => {
   const [text, setText] = useState("");
 
-  const storeData = async (value: string) => {
-    try {
-      await AsyncStorage.setItem("@storage_Key", value);
-    } catch (e) {
-      // saving error
-    }
-  };
+  // Store input form user to localStorage and navigate population page
   const onSubmitEdit = async () => {
-    storeData(text);
+    StoreData(text);
     navigation.navigate("showPop");
   };
 

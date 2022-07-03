@@ -8,22 +8,14 @@ import {
 
 import styles from "./style";
 import homeStyles from "../Home/main/style";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/Ionicons";
-
+import StoreData from "../sharedFunctions/func";
+// Component for search by country page
 const Country = ({ navigation }) => {
   const [text, setText] = useState("");
-
-  const storeData = async (value: string) => {
-    try {
-      await AsyncStorage.setItem("@storage_Key", value);
-    } catch (e) {
-      // saving error
-    }
-  };
-
+  // On submit Store input from user to localStorage and navigate to population page
   const onSubmitEdit = async () => {
-    storeData(text);
+    StoreData(text);
     navigation.navigate("ShowCities");
   };
 

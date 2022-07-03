@@ -4,6 +4,7 @@ import { NativeBaseProvider } from "native-base";
 import ShowPopStyles from "../ShowPop/style";
 import styles from "./style";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import StoreData from "../sharedFunctions/func";
 
 export type Data = {
   country: string;
@@ -20,14 +21,7 @@ const ShowCities = ({ navigation }: any) => {
   const [data, setData] = useState<Data>();
   const [loading, setLoading] = useState<boolean>(true);
 
-  const storeData = async (value: string) => {
-    try {
-      AsyncStorage.clear();
-      await AsyncStorage.setItem("@storage_Key", value);
-    } catch (e) {
-      // saving error
-    }
-  };
+
 
   const getData = async () => {
     try {
@@ -41,31 +35,35 @@ const ShowCities = ({ navigation }: any) => {
   };
 
   getData();
+  
   let url = `http://api.geonames.org/searchJSON?country=${text}&maxRows=3&username=weknowit2`;
+  
+    const fetchData = async () => {
+      
+      try {
+        const resp = await fetch(url, {
+          method: "GET",
+          headers: {
+            "X-Api-Key": "EtG+IKg8qrx8SIdtZep7Nw==6XWiAFigpduBbahC",
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
+        const data: Data = await resp.json();
 
-  const fetchData = async () => {
-    await getData();
-    try {
-      const resp = await fetch(url, {
-        method: "GET",
-        headers: {
-          "X-Api-Key": "EtG+IKg8qrx8SIdtZep7Nw==6XWiAFigpduBbahC",
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
-      const data: Data = await resp.json();
-      console.warn();
-      setData(data);
+        setData(data);
+        setLoading(false);
+      } catch (e) {
+        console.warn("Fetch failed");
+      }
+    };
+  
+  
 
-      setLoading(false);
-    } catch (e) {
-      console.warn("Fetch failed");
-    }
-  };
+  const onSubmitEdit = async (itemName: string) => {
 
-  const onSubmitEdit = async () => {
-    storeData(text);
+    StoreData(itemName);
+    console.warn(text)
     navigation.navigate("showPop");
   };
 
@@ -80,7 +78,7 @@ const ShowCities = ({ navigation }: any) => {
   const renderItem = ({ item }: Object) => {
     return (
       <View>
-        <Text style={styles.popNum} onPress={onSubmitEdit}>
+        <Text style={styles.popNum} onPress={() => onSubmitEdit(item.name)}>
           {item.name}
         </Text>
       </View>
@@ -88,7 +86,9 @@ const ShowCities = ({ navigation }: any) => {
   };
 
   useEffect(() => {
-    fetchData();
+    if(text !== ''){
+      fetchData();
+    }
   }, [text]);
 
   return (
