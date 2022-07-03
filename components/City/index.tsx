@@ -14,7 +14,7 @@ import StoreData from '../sharedFunctions/func'
 const City = ({ navigation }) => {
   const [text, setText] = useState("");
 
-  // Store input form user to localStorage and navigate population page
+  // Store input form user to localStorage and navigate to population page
   const onSubmitEdit = async () => {
     StoreData(text);
     navigation.navigate("showPop");

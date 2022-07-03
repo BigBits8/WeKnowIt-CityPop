@@ -8,8 +8,9 @@ This is a app where users can search for a city and get the population of that c
 
 ### Executing program
 
-- How to run the program
-  Start react native server: yarn start
+How to run the program
+-Start react native server: yarn start
+-Start App emulator
 
 #### How to search
 
@@ -28,6 +29,9 @@ Search city by country
 
 Node v16.14.0
 yarn 1.22.17
+typescript 4.3.5
+jest 28.1.1"
+babel/core 7.12.9
 
 ##### Authors
 

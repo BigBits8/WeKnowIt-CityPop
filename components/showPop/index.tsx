@@ -3,13 +3,13 @@ import { NativeBaseProvider } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "./style";
 import { View, Text, FlatList } from "react-native";
-import { Data } from "../ShowCities";
 
 const ShowPop = () => {
   const [text, setText] = useState<string>();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState<boolean>(true);
 
+  // Get value from localstorage previously saved from 'Search by country' or 'Search by city' page
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem("@storage_Key");
@@ -37,7 +37,7 @@ const ShowPop = () => {
     );
 
     const data = await resp.json();
-      
+
     setData(data);
     setLoading(false);
   };

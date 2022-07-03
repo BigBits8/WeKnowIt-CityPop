@@ -3,6 +3,7 @@ import { View, Text} from "react-native";
 import styles from './style'
 import NavButton from '../Buttons'
 
+// Component of landing page
 
 const Home = ({navigation}: any) => {
   return (

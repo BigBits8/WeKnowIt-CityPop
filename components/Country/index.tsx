@@ -13,6 +13,7 @@ import StoreData from "../sharedFunctions/func";
 // Component for search by country page
 const Country = ({ navigation }) => {
   const [text, setText] = useState("");
+  
   // On submit Store input from user to localStorage and navigate to population page
   const onSubmitEdit = async () => {
     StoreData(text);

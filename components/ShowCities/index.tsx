@@ -16,16 +16,16 @@ export type Data = {
   geonames?: [];
 };
 
+// Component for getting cities by country
 const ShowCities = ({ navigation }: any) => {
   const [text, setText] = useState<string>("");
   const [data, setData] = useState<Data>();
   const [loading, setLoading] = useState<boolean>(true);
 
-
-
+  // Get value from localstorage previously saved from 'Search by country' page
   const getData = async () => {
     try {
-      const value = await AsyncStorage.getItem("@storage_Key");
+      const value: string = await AsyncStorage.getItem("@storage_Key");
       if (value !== null) {
         setText(value);
       }
@@ -33,48 +33,45 @@ const ShowCities = ({ navigation }: any) => {
       console.warn("Faild to fetch the input");
     }
   };
-
+  
+  // Run function getData
   getData();
-  
+
   let url = `http://api.geonames.org/searchJSON?country=${text}&maxRows=3&username=weknowit2`;
-  
-    const fetchData = async () => {
-      
-      try {
-        const resp = await fetch(url, {
-          method: "GET",
-          headers: {
-            "X-Api-Key": "EtG+IKg8qrx8SIdtZep7Nw==6XWiAFigpduBbahC",
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        });
-        const data: Data = await resp.json();
-
-        setData(data);
-        setLoading(false);
-      } catch (e) {
-        console.warn("Fetch failed");
-      }
-    };
-  
-  
-
+  // Fetch data from Api Geonames
+  const fetchData = async () => {
+    try {
+      const resp = await fetch(url, {
+        method: "GET",
+        headers: {
+          "X-Api-Key": "EtG+IKg8qrx8SIdtZep7Nw==6XWiAFigpduBbahC",
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+      // Get response and handle data with useState
+      const data: Data = await resp.json();
+      setData(data);
+      // On successful fetch, set Loading to false
+      setLoading(false);
+    } catch (e) {
+      console.warn("Fetch failed");
+    }
+  };
+  // On submit, store name of city to localStorage and navigate to population page
   const onSubmitEdit = async (itemName: string) => {
-
     StoreData(itemName);
-    console.warn(text)
+    // console.warn(text);
     navigation.navigate("showPop");
   };
 
-  // KOLLA HÄR!!!
   type Item = {
-    name: string,
+    name: string;
   };
   interface Object {
     item: Item;
   }
-  
+  // Render each city 
   const renderItem = ({ item }: Object) => {
     return (
       <View>
@@ -86,7 +83,7 @@ const ShowCities = ({ navigation }: any) => {
   };
 
   useEffect(() => {
-    if(text !== ''){
+    if (text !== "") {
       fetchData();
     }
   }, [text]);
@@ -101,6 +98,7 @@ const ShowCities = ({ navigation }: any) => {
         {data && (
           <View style={styles.pop}>
             <Text style={ShowPopStyles.popText}>Cities</Text>
+            {/* Show loading message while fetching */}
             {(loading && <Text>Loading..</Text>) || (
               <FlatList
                 data={data.geonames}
