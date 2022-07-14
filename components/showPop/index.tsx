@@ -86,6 +86,7 @@ const ShowPop = () => {
           <View style={styles.pop}>
             <Text style={styles.popText}>Population</Text>
             {(loading && <Text>Loading..</Text>) ||
+              /* Error message entering city */
               (errorMessage && <Text>city not found..</Text>)}
 
             {<FlatList data={handleData} renderItem={renderItem} />}

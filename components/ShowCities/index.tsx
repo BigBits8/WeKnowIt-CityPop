@@ -116,11 +116,14 @@ const ShowCities = ({ navigation }: any) => {
 
         {handleData && (
           <View style={styles.pop}>
-            <Text style={ShowPopStyles.popText}>Cities</Text>
+            {/* If errorMessage is true hide this  */}
+            {!errorMessage && <Text style={ShowPopStyles.popText}>Cities</Text>}
             {/* Show loading message while fetching */}
             {loading && <Text>Loading..</Text>}
-            {errorMessage && <Text>Cities not found..</Text>}
-
+            {/* Error message while searching country */}
+            {errorMessage && (
+              <Text style={ShowPopStyles.popText}>Country not found..</Text>
+            )}
             <FlatList
               data={handleData.geonames}
               style={styles.flatList}
