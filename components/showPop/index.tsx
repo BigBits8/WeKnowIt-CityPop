@@ -6,7 +6,7 @@ import { View, Text, FlatList } from "react-native";
 
 const ShowPop = () => {
   const [text, setText] = useState<string>();
-  const [data, setData] = useState([]);
+  const [handleData, setHandleData] = useState([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   // Get value from localstorage previously saved from 'Search by country' or 'Search by city' page
@@ -36,9 +36,9 @@ const ShowPop = () => {
       }
     );
 
-    const data = await resp.json();
+    const responseData = await resp.json();
 
-    setData(data);
+    setHandleData(responseData);
     setLoading(false);
   };
 
@@ -65,11 +65,11 @@ const ShowPop = () => {
           <Text style={styles.text}>{text}</Text>
         </View>
 
-        {data && (
+        {handleData && (
           <View style={styles.pop}>
             <Text style={styles.popText}>Population</Text>
             {(loading && <Text>Loading..</Text>) || (
-              <FlatList data={data} renderItem={renderItem} />
+              <FlatList data={handleData} renderItem={renderItem} />
             )}
           </View>
         )}
